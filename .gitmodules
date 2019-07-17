@@ -1,0 +1,3 @@
+[submodule "libs/aruna"]
+	path = libs/aruna
+	url = git@github.com:aruna-rov/Aruna.git
