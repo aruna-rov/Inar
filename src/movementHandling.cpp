@@ -6,7 +6,7 @@
 #include "movementHandling.h"
 #include "Graphics.h"
 #include "aruna.h"
-#include <aruna/controlTypes.h>
+#include <aruna/control/controlTypes.h>
 
 namespace movementHandling {
 	namespace {
@@ -17,22 +17,22 @@ namespace movementHandling {
 	}
 
 	int start(GLFWwindow *attach_to_window) {
-		log = new aruna::log::channel_t("movementHandling");
+		log = new aruna::log::channel_t("movementHandling", aruna::log::level_t::VERBOSE);
 		aruna_comm_channel = new aruna::comm::channel_t(ARUNA_CONTROL_PORT);
-		int aruna_err = 0;
+		aruna::err_t aruna_err = aruna::err_t::OK;
 		window = attach_to_window;
-		aruna_err = (int) aruna::comm::register_channel(aruna_comm_channel);
-		if (aruna_err) {
-			log->error("failed to register channel: 0x%X", aruna_err);
-			return aruna_err;
+		if ((int) aruna_comm_channel->register_err) {
+			log->error("failed to register channel: %s", aruna::err_to_char.at(aruna_err));
+			return (int) aruna_err;
 		}
 		glfwSetKeyCallback(window, handle_input);
+		return (int) aruna_err;
 	}
 
 	void handle_input(GLFWwindow *window, int key, int scancode, int action, int mods) {
 		static constexpr size_t data_size = 4;
 		static uint8_t data_to_send[data_size];
-		int aruna_err = 0;
+		aruna::err_t aruna_err = aruna::err_t::OK;
 		bool active = false;
 
 		switch (key) {
@@ -127,9 +127,9 @@ namespace movementHandling {
 				break;
 		}
 		if (active) {
-			aruna_err = (int) aruna::comm::send(aruna_comm_channel, ARUNA_CONTROL_PORT, data_to_send, data_size);
-			if (aruna_err) {
-				log->error("failed to send: 0x%X", aruna_err);
+			aruna_err = aruna_comm_channel->send(ARUNA_CONTROL_PORT, data_to_send, data_size);
+			if ((int)aruna_err) {
+				log->error("failed to send: %s", aruna::err_to_char.at(aruna_err));
 			}
 		}
 	}

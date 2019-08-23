@@ -13,25 +13,25 @@ int main(int argc, char **argv) {
     log::channel_t log("main");
     log.level = log::level_t::VERBOSE;
 
-    drivers::comm::CommDriver *serial;
+    comm::Link *serial;
 
     if (argc < 2) {
     	log.error("To few arguments, please specify serial port.");
     	exit(1);
     }
     // TODO commandline arguments for braudrate
-    serial = new drivers::comm::SerialPosix(argv[1], B921600);
+    serial = new comm::Serial(argv[1], B921600);
 	aruna_err = (int) comm::start(serial);
     if (aruna_err) {
-    	log.error("failed to start comm: 0x%X", aruna_err);
+    	log.error("failed to start comm: %s", err_to_char.at((err_t)aruna_err));
     	exit(1);
     }
-	log.debug("comm start: 0x%X", aruna_err);
+	log.debug("comm start: %s", err_to_char.at((err_t)aruna_err));
 	main_window = main_graphics.create_window();
 	movementHandling::start(main_window);
 
 	log::set_level("movementHandling", log::level_t::VERBOSE);
-	log::set_level("SerialPosix", log::level_t::VERBOSE);
+	log::set_level("Serial", log::level_t::VERBOSE);
 	while (!main_graphics.window_should_close()) {
 		glfwWaitEvents();
 	}
