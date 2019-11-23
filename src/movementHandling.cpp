@@ -62,8 +62,33 @@ namespace movementHandling {
 					data_to_send[3] = 0x0;
 				}
 				break;
-			case GLFW_KEY_A:
-			case GLFW_KEY_LEFT:
+            case GLFW_KEY_A:
+            case GLFW_KEY_LEFT:
+                active = true;
+                data_to_send[0] = 0x01;
+                data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Y;
+                if (action == GLFW_PRESS) {
+                    data_to_send[2] = 0xFF;
+                    data_to_send[3] = 0xFF;
+                } else if (action == GLFW_RELEASE) {
+                    data_to_send[2] = 0x0;
+                    data_to_send[3] = 0x0;
+                }
+                break;
+            case GLFW_KEY_D:
+            case GLFW_KEY_RIGHT:
+                active = true;
+                data_to_send[0] = 0x01;
+                data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Y | 0x40;
+                if (action == GLFW_PRESS) {
+                    data_to_send[2] = 0xFF;
+                    data_to_send[3] = 0xFF;
+                } else if (action == GLFW_RELEASE) {
+                    data_to_send[2] = 0x0;
+                    data_to_send[3] = 0x0;
+                }
+                break;
+			case GLFW_KEY_Q:
 				active = true;
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::YAW;
@@ -75,8 +100,7 @@ namespace movementHandling {
 					data_to_send[3] = 0x0;
 				}
 				break;
-			case GLFW_KEY_D:
-			case GLFW_KEY_RIGHT:
+			case GLFW_KEY_E:
 				active = true;
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::YAW | 0x40;
@@ -88,7 +112,7 @@ namespace movementHandling {
 					data_to_send[3] = 0x0;
 				}
 				break;
-			case GLFW_KEY_Q:
+			case GLFW_KEY_R:
 				active = true;
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Z;
@@ -100,7 +124,7 @@ namespace movementHandling {
 					data_to_send[3] = 0x0;
 				}
 				break;
-			case GLFW_KEY_E:
+			case GLFW_KEY_F:
 				active = true;
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Z | 0x40;
