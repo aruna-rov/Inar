@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     	exit(1);
     }
     // TODO commandline arguments for braudrate
-    serial = new comm::Serial(argv[1], B921600);
+    serial = new comm::Serial(argv[1], B115200);
 	aruna_err = (int) comm::start(serial);
     if (aruna_err) {
     	log.error("failed to start comm: %s", err_to_char.at((err_t)aruna_err));
