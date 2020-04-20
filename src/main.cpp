@@ -11,10 +11,11 @@ int main(int argc, char **argv) {
 	Graphics main_graphics;
 	GLFWwindow* main_window;
     log::channel_t log("main");
-    log.level = log::level_t::VERBOSE;
+    log.level = log::level_t::INFO;
 
     comm::Link *serial;
 
+    sis::watcher::start();
     if (argc < 2) {
     	log.error("To few arguments, please specify serial port.");
     	exit(1);
@@ -30,8 +31,8 @@ int main(int argc, char **argv) {
 	main_window = main_graphics.create_window();
 	movementHandling::start(main_window);
 
-	log::set_level("movementHandling", log::level_t::VERBOSE);
-	log::set_level("Serial", log::level_t::VERBOSE);
+	log::set_level("movementHandling", log::level_t::INFO);
+	log::set_level("Serial", log::level_t::INFO);
 	while (!main_graphics.window_should_close()) {
 		glfwWaitEvents();
 	}
