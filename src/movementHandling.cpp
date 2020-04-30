@@ -14,7 +14,9 @@ namespace movementHandling {
 		GLFWwindow *window;
 		aruna::comm::channel_t *aruna_comm_channel;
 		static const aruna::comm::port_t ARUNA_CONTROL_PORT = 3;
-		const uint16_t press_speed = 65535;
+		const uint16_t max_press_speed = 65535;
+		uint32_t press_speed = 32767;
+		const uint16_t min_press_speed = 3550;
 	}
 
 	int start(GLFWwindow *attach_to_window) {
@@ -145,6 +147,24 @@ namespace movementHandling {
 					return;
 				}
 				break;
+		    case GLFW_KEY_LEFT_BRACKET:
+//		        decrease speed
+                if (action == GLFW_PRESS) {
+                    press_speed *= 0.8;
+                    press_speed = press_speed < min_press_speed ? min_press_speed : press_speed;
+                    log->info("press speed decreased to %i", press_speed);
+                    return;
+                }
+                break;
+		    case GLFW_KEY_RIGHT_BRACKET:
+//		        increase speed
+                if (action == GLFW_PRESS) {
+                    press_speed *= 1.2;
+                    press_speed = press_speed > max_press_speed ? max_press_speed : press_speed;
+                    log->info("press speed increased to %i", press_speed);
+                    return;
+                }
+                break;
 			case GLFW_KEY_ESCAPE:
 				if (action == GLFW_PRESS) {
 					glfwSetWindowShouldClose(window, GLFW_TRUE);
