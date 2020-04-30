@@ -14,6 +14,7 @@ namespace movementHandling {
 		GLFWwindow *window;
 		aruna::comm::channel_t *aruna_comm_channel;
 		static const aruna::comm::port_t ARUNA_CONTROL_PORT = 3;
+		const uint16_t press_speed = 65535;
 	}
 
 	int start(GLFWwindow *attach_to_window) {
@@ -42,8 +43,8 @@ namespace movementHandling {
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::X;
 				if (action == GLFW_PRESS) {
-					data_to_send[2] = 0xFF;
-					data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
 				} else if (action == GLFW_RELEASE) {
 					data_to_send[2] = 0x0;
 					data_to_send[3] = 0x0;
@@ -55,8 +56,8 @@ namespace movementHandling {
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::X | 0x40;
 				if (action == GLFW_PRESS) {
-					data_to_send[2] = 0xFF;
-					data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
 				} else if (action == GLFW_RELEASE) {
 					data_to_send[2] = 0x0;
 					data_to_send[3] = 0x0;
@@ -68,8 +69,8 @@ namespace movementHandling {
                 data_to_send[0] = 0x01;
                 data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Y;
                 if (action == GLFW_PRESS) {
-                    data_to_send[2] = 0xFF;
-                    data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
                 } else if (action == GLFW_RELEASE) {
                     data_to_send[2] = 0x0;
                     data_to_send[3] = 0x0;
@@ -81,8 +82,8 @@ namespace movementHandling {
                 data_to_send[0] = 0x01;
                 data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Y | 0x40;
                 if (action == GLFW_PRESS) {
-                    data_to_send[2] = 0xFF;
-                    data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
                 } else if (action == GLFW_RELEASE) {
                     data_to_send[2] = 0x0;
                     data_to_send[3] = 0x0;
@@ -93,8 +94,8 @@ namespace movementHandling {
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::YAW;
 				if (action == GLFW_PRESS) {
-					data_to_send[2] = 0xFF;
-					data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
 				} else if (action == GLFW_RELEASE) {
 					data_to_send[2] = 0x0;
 					data_to_send[3] = 0x0;
@@ -105,8 +106,8 @@ namespace movementHandling {
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::YAW | 0x40;
 				if (action == GLFW_PRESS) {
-					data_to_send[2] = 0xFF;
-					data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
 				} else if (action == GLFW_RELEASE) {
 					data_to_send[2] = 0x0;
 					data_to_send[3] = 0x0;
@@ -117,8 +118,8 @@ namespace movementHandling {
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Z;
 				if (action == GLFW_PRESS) {
-					data_to_send[2] = 0xFF;
-					data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
 				} else if (action == GLFW_RELEASE) {
 					data_to_send[2] = 0x0;
 					data_to_send[3] = 0x0;
@@ -129,8 +130,8 @@ namespace movementHandling {
 				data_to_send[0] = 0x01;
 				data_to_send[1] = (uint8_t) aruna::control::axis_mask_t::Z | 0x40;
 				if (action == GLFW_PRESS) {
-					data_to_send[2] = 0xFF;
-					data_to_send[3] = 0xFF;
+                    data_to_send[2] = press_speed >> 8;
+                    data_to_send[3] = press_speed & 0xff;
 				} else if (action == GLFW_RELEASE) {
 					data_to_send[2] = 0x0;
 					data_to_send[3] = 0x0;
